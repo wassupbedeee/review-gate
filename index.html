@@ -86,7 +86,7 @@
     }
 
     .star.clicked {
-      color: #ffd700; /* ★ 修正ポイント */
+      color: #ffd700 !important;
       animation: starClick 0.6s ease-out;
     }
 
@@ -223,7 +223,6 @@
         const rating = parseInt(this.dataset.rating);
         selectedRating = rating;
 
-        // 星をハイライト
         stars.forEach((s, i) => {
           if (i + 1 <= rating) {
             s.classList.add('active');
@@ -234,19 +233,17 @@
 
         ratingText.textContent = ratingTexts[rating];
 
-        // アニメーション
         stars[rating - 1].classList.add('clicked');
         setTimeout(() => {
           stars[rating - 1].classList.remove('clicked');
         }, 600);
 
-        // 遷移
         setTimeout(() => {
           redirectToUrl(rating);
         }, 800);
       });
 
-      // PC用ホバー表示
+      // PC用ホバー
       star.addEventListener('mouseenter', function () {
         if (!('ontouchstart' in window)) {
           const rating = parseInt(this.dataset.rating);
@@ -262,7 +259,6 @@
       });
     });
 
-    // マウスが離れた時に選択状態を維持
     document.getElementById('starRating').addEventListener('mouseleave', function () {
       if (selectedRating === 0 && !('ontouchstart' in window)) {
         stars.forEach((s) => s.classList.remove('active'));
