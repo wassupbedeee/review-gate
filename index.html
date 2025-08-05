@@ -270,17 +270,39 @@
         const loading = document.getElementById('loading');
         let selectedRating = 0;
 
-        // 星にイベントリスナーを追加
+        // 星にイベントリスナーを追加（修正版）
         stars.forEach(star => {
-            // ホバー効果（デスクトップ）
+            // ホバー効果（デスクトップのみ）
             star.addEventListener('mouseenter', function() {
+                // タッチデバイスではホバーを無効化
+                if (window.matchMedia("(hover: hover)").matches) {
+                    const rating = parseInt(this.dataset.rating);
+                    highlightStars(rating);
+                    showRatingText(rating);
+                }
+            });
+
+            // クリック/タップ効果（統合版）
+            star.addEventListener('click', function(e) {
+                e.preventDefault(); // デフォルト動作を防止
                 const rating = parseInt(this.dataset.rating);
+                console.log('Star clicked, rating:', rating); // デバッグ用
+                selectRating(rating);
+            });
+
+            // タッチ専用イベント（スマホ用）
+            star.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                const rating = parseInt(this.dataset.rating);
+                console.log('Star touched, rating:', rating); // デバッグ用
+                
+                // タッチ時は即座に星をハイライト
                 highlightStars(rating);
                 showRatingText(rating);
             });
 
-            // クリック/タップ効果
-            star.addEventListener('click', function() {
+            star.addEventListener('touchend', function(e) {
+                e.preventDefault();
                 const rating = parseInt(this.dataset.rating);
                 selectRating(rating);
             });
@@ -361,16 +383,12 @@
             }, 1000);
         }
 
-        // タッチデバイスでのダブルタップ防止
-        let lastTouchTime = 0;
+        // タッチデバイス用のダブルタップ防止（簡略化）
+        let touchTimeout;
         stars.forEach(star => {
             star.addEventListener('touchend', function(e) {
-                const currentTime = new Date().getTime();
-                const tapLength = currentTime - lastTouchTime;
-                if (tapLength < 500 && tapLength > 0) {
-                    e.preventDefault();
-                }
-                lastTouchTime = currentTime;
+                // 既存のtouchendイベントと重複を避けるため、ここは空にする
+                // 実際の処理は上のイベントリスナーで行う
             });
         });
     </script>
