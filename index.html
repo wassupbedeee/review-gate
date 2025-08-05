@@ -109,7 +109,7 @@
       font-size: 18px;
       color: #333;
       font-weight: 500;
-      min-height: 25px;
+      min-height: 1.5em; /* ← ここがズレ解消の要！ */
       transition: all 0.3s ease;
     }
 
@@ -238,7 +238,6 @@
           stars[rating - 1].classList.remove('clicked');
         }, 600);
 
-        // ローディング表示前にレイアウトを確定させてちらつき防止
         requestAnimationFrame(() => {
           loading.style.display = 'block';
 
