@@ -1,344 +1,295 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>お客様の声をお聞かせください</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>お客様の声をお聞かせください</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-        .container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px 30px;
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-        }
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      padding: 40px 30px;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-        }
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+    }
 
-        h1 {
-            color: #333;
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
+    h1 {
+      color: #333;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
 
-        .subtitle {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 40px;
-            line-height: 1.5;
-        }
+    .subtitle {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 40px;
+      line-height: 1.5;
+    }
 
-        .star-rating {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 30px 0;
-        }
+    .star-rating {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 30px 0;
+    }
 
-        .star {
-            font-size: 48px;
-            color: #ddd;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            user-select: none;
-            position: relative;
-            display: inline-block;
-        }
+    .star {
+      font-size: 48px;
+      color: #ddd;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      position: relative;
+      display: inline-block;
+    }
 
-        .star:hover {
-            transform: scale(1.1);
-            color: #ffd700;
-        }
+    .star:hover {
+      transform: scale(1.1);
+      color: #ffd700;
+    }
 
-        .star.active {
-            color: #ffd700;
-            animation: starPop 0.4s ease-out;
-        }
+    .star.active {
+      color: #ffd700;
+      animation: starPop 0.4s ease-out;
+    }
 
-        .star.clicked {
-            animation: starClick 0.6s ease-out;
-        }
+    .star.clicked {
+      animation: starClick 0.6s ease-out;
+    }
 
-        @keyframes starPop {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.3);
-            }
-            100% {
-                transform: scale(1.1);
-            }
-        }
+    @keyframes starPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1.1); }
+    }
 
-        @keyframes starClick {
-            0% {
-                transform: scale(1.1);
-            }
-            25% {
-                transform: scale(1.4) rotate(5deg);
-            }
-            50% {
-                transform: scale(1.2) rotate(-2deg);
-            }
-            75% {
-                transform: scale(1.3) rotate(1deg);
-            }
-            100% {
-                transform: scale(1.1) rotate(0deg);
-            }
-        }
+    @keyframes starClick {
+      0% { transform: scale(1.1); }
+      25% { transform: scale(1.4) rotate(5deg); }
+      50% { transform: scale(1.2) rotate(-2deg); }
+      75% { transform: scale(1.3) rotate(1deg); }
+      100% { transform: scale(1.1) rotate(0deg); }
+    }
 
-        .rating-text {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #333;
-            font-weight: 500;
-            min-height: 25px;
-            transition: all 0.3s ease;
-        }
+    .rating-text {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      font-weight: 500;
+      min-height: 25px;
+      transition: all 0.3s ease;
+    }
 
-        .instruction {
-            color: #888;
-            font-size: 14px;
-            margin-top: 30px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-        }
+    .instruction {
+      color: #888;
+      font-size: 14px;
+      margin-top: 30px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
 
-        .loading {
-            display: none;
-            margin-top: 20px;
-            color: #667eea;
-            font-size: 16px;
-        }
+    .loading {
+      display: none;
+      margin-top: 20px;
+      color: #667eea;
+      font-size: 16px;
+    }
 
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-        }
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 10px;
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
-        /* レスポンシブ対応 */
-        @media (max-width: 480px) {
-            .container {
-                padding: 30px 20px;
-            }
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
 
-            h1 {
-                font-size: 20px;
-            }
+      h1 {
+        font-size: 20px;
+      }
 
-            .subtitle {
-                font-size: 14px;
-            }
+      .subtitle {
+        font-size: 14px;
+      }
 
-            .star {
-                font-size: 40px;
-            }
+      .star {
+        font-size: 40px;
+      }
 
-            .star-rating {
-                gap: 4px;
-            }
+      .star-rating {
+        gap: 4px;
+      }
 
-            .rating-text {
-                font-size: 16px;
-            }
-        }
+      .rating-text {
+        font-size: 16px;
+      }
+    }
 
-        /* タッチデバイス用の調整 */
-        @media (hover: none) {
-            .star:hover {
-                transform: none;
-                color: #ddd;
-            }
-        }
-    </style>
+    @media (hover: none) {
+      .star:hover {
+        transform: none;
+        color: inherit;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>お客様の声をお聞かせください</h1>
-        <p class="subtitle">サービスはいかがでしたか？星をタップして評価してください</p>
-        
-        <div class="star-rating" id="starRating">
-            <span class="star" data-rating="1">★</span>
-            <span class="star" data-rating="2">★</span>
-            <span class="star" data-rating="3">★</span>
-            <span class="star" data-rating="4">★</span>
-            <span class="star" data-rating="5">★</span>
-        </div>
-        
-        <div class="rating-text" id="ratingText"></div>
-        
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            レビューページに移動中...
-        </div>
-        
-        <div class="instruction">
-            ★をタップして評価してください<br>
-            自動的に適切なページに移動します
-        </div>
+  <div class="container">
+    <h1>お客様の声をお聞かせください</h1>
+    <p class="subtitle">サービスはいかがでしたか？星をタップして評価してください</p>
+
+    <div class="star-rating" id="starRating">
+      <span class="star" data-rating="1">★</span>
+      <span class="star" data-rating="2">★</span>
+      <span class="star" data-rating="3">★</span>
+      <span class="star" data-rating="4">★</span>
+      <span class="star" data-rating="5">★</span>
     </div>
 
-    <script>
-        // 設定：遷移先URL（シンプル版）
-        const GOOGLE_REVIEW_URL = "https://www.min-breeder.com/dogRanking.php";
-        const FEEDBACK_FORM_URL = "https://www.koneko-breeder.com/catRanking.php";
-        
-        // 評価テキスト
-        const ratingTexts = {
-            1: "改善点をお聞かせください 😔",
-            2: "ご意見をお聞かせください 😕",
-            3: "貴重なご意見をお聞かせください 😐",
-            4: "Googleレビューをお願いします！ 😊",
-            5: "Googleレビューをお願いします！ ⭐"
-        };
+    <div class="rating-text" id="ratingText"></div>
 
-        const stars = document.querySelectorAll('.star');
-        const ratingText = document.getElementById('ratingText');
-        const loading = document.getElementById('loading');
-        let selectedRating = 0;
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      レビューページに移動中...
+    </div>
 
-        // 星にイベントリスナーを追加（超シンプル版）
-        stars.forEach((star, index) => {
-            // クリック/タップ効果
-            star.addEventListener('click', function() {
-                const rating = parseInt(this.dataset.rating);
-                console.log('Star clicked:', rating); // デバッグ用
-                
-                // 即座に星をハイライト
-                stars.forEach((s, i) => {
-                    if (i < rating) {
-                        s.classList.add('active');
-                    } else {
-                        s.classList.remove('active');
-                    }
-                });
-                
-                // テキスト表示
-                ratingText.textContent = ratingTexts[rating];
-                
-                // 評価を選択
-                selectRating(rating);
-            });
+    <div class="instruction">
+      ★をタップして評価してください<br>
+      自動的に適切なページに移動します
+    </div>
+  </div>
 
-            // ホバー効果（PC用のみ）
-            star.addEventListener('mouseenter', function() {
-                if (!('ontouchstart' in window)) {
-                    const rating = parseInt(this.dataset.rating);
-                    
-                    // ホバー時の星ハイライト
-                    stars.forEach((s, i) => {
-                        if (i < rating) {
-                            s.classList.add('active');
-                        } else {
-                            s.classList.remove('active');
-                        }
-                    });
-                    
-                    ratingText.textContent = ratingTexts[rating];
-                }
-            });
+  <script>
+    const GOOGLE_REVIEW_URL = "https://www.min-breeder.com/dogRanking.php";
+    const FEEDBACK_FORM_URL = "https://www.koneko-breeder.com/catRanking.php";
+
+    const ratingTexts = {
+      1: "改善点をお聞かせください 😔",
+      2: "ご意見をお聞かせください 😕",
+      3: "貴重なご意見をお聞かせください 😐",
+      4: "Googleレビューをお願いします！ 😊",
+      5: "Googleレビューをお願いします！ ⭐"
+    };
+
+    const stars = document.querySelectorAll('.star');
+    const ratingText = document.getElementById('ratingText');
+    const loading = document.getElementById('loading');
+    let selectedRating = 0;
+
+    stars.forEach((star) => {
+      star.addEventListener('click', function () {
+        const rating = parseInt(this.dataset.rating);
+        selectedRating = rating;
+
+        // 星をハイライト
+        stars.forEach((s, i) => {
+          if (i + 1 <= rating) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
         });
 
-        // 星評価エリアからマウスが離れた時の処理
-        document.getElementById('starRating').addEventListener('mouseleave', function() {
-            if (selectedRating === 0 && !('ontouchstart' in window)) {
-                // 選択されていない場合は星をリセット
-                stars.forEach(star => {
-                    star.classList.remove('active');
-                });
-                ratingText.textContent = '';
-            } else if (selectedRating > 0) {
-                // 既に選択済みの場合は選択状態を維持
-                stars.forEach((s, i) => {
-                    if (i < selectedRating) {
-                        s.classList.add('active');
-                    } else {
-                        s.classList.remove('active');
-                    }
-                });
-                ratingText.textContent = ratingTexts[selectedRating];
-            }
-        });
+        ratingText.textContent = ratingTexts[rating];
 
-        // 評価を選択
-        function selectRating(rating) {
-            selectedRating = rating;
-            
-            // クリックアニメーション
-            stars[rating - 1].classList.add('clicked');
-            
-            // アニメーション終了後にクラスを削除
-            setTimeout(() => {
-                stars[rating - 1].classList.remove('clicked');
-            }, 600);
+        // アニメーション
+        stars[rating - 1].classList.add('clicked');
+        setTimeout(() => {
+          stars[rating - 1].classList.remove('clicked');
+        }, 600);
 
-            // 少し待ってから遷移
-            setTimeout(() => {
-                redirectToUrl(rating);
-            }, 800);
-        }
+        // 遷移
+        setTimeout(() => {
+          redirectToUrl(rating);
+        }, 800);
+      });
 
-        // URLに遷移
-        function redirectToUrl(rating) {
-            loading.style.display = 'block';
-            
-            let targetUrl;
-            if (rating >= 4) {
-                targetUrl = GOOGLE_REVIEW_URL;
+      // PC用ホバー表示
+      star.addEventListener('mouseenter', function () {
+        if (!('ontouchstart' in window)) {
+          const rating = parseInt(this.dataset.rating);
+          stars.forEach((s, i) => {
+            if (i + 1 <= rating) {
+              s.classList.add('active');
             } else {
-                targetUrl = FEEDBACK_FORM_URL;
+              s.classList.remove('active');
             }
-
-            // 実際の遷移
-            setTimeout(() => {
-                window.location.href = targetUrl;
-            }, 1000);
+          });
+          ratingText.textContent = ratingTexts[rating];
         }
-    </script>
+      });
+    });
+
+    // マウスが離れた時に選択状態を維持
+    document.getElementById('starRating').addEventListener('mouseleave', function () {
+      if (selectedRating === 0 && !('ontouchstart' in window)) {
+        stars.forEach((s) => s.classList.remove('active'));
+        ratingText.textContent = '';
+      } else if (selectedRating > 0) {
+        stars.forEach((s, i) => {
+          if (i + 1 <= selectedRating) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
+        });
+        ratingText.textContent = ratingTexts[selectedRating];
+      }
+    });
+
+    function redirectToUrl(rating) {
+      loading.style.display = 'block';
+      const targetUrl = rating >= 4 ? GOOGLE_REVIEW_URL : FEEDBACK_FORM_URL;
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 1000);
+    }
+  </script>
 </body>
 </html>
