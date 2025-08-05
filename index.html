@@ -81,7 +81,7 @@
     }
 
     .star.active {
-      color: #ffd700;
+      color: #ffd700 !important;
       animation: starPop 0.4s ease-out;
     }
 
@@ -238,12 +238,16 @@
           stars[rating - 1].classList.remove('clicked');
         }, 600);
 
-        setTimeout(() => {
-          redirectToUrl(rating);
-        }, 800);
+        // ローディング表示前にレイアウトを確定させてちらつき防止
+        requestAnimationFrame(() => {
+          loading.style.display = 'block';
+
+          setTimeout(() => {
+            window.location.href = rating >= 4 ? GOOGLE_REVIEW_URL : FEEDBACK_FORM_URL;
+          }, 1000);
+        });
       });
 
-      // PC用ホバー
       star.addEventListener('mouseenter', function () {
         if (!('ontouchstart' in window)) {
           const rating = parseInt(this.dataset.rating);
@@ -274,14 +278,6 @@
         ratingText.textContent = ratingTexts[selectedRating];
       }
     });
-
-    function redirectToUrl(rating) {
-      loading.style.display = 'block';
-      const targetUrl = rating >= 4 ? GOOGLE_REVIEW_URL : FEEDBACK_FORM_URL;
-      setTimeout(() => {
-        window.location.href = targetUrl;
-      }, 1000);
-    }
   </script>
 </body>
 </html>
