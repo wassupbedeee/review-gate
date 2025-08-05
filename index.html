@@ -224,6 +224,34 @@
     </div>
 
     <script>
+        // 🔒 セキュリティチェック: 許可されたドメインかチェック
+        function checkDomain() {
+            const currentDomain = window.location.hostname;
+            const allowedDomains = [
+                'min-breeder.com',           
+                'koneko-breeder.com',    
+                'github.io'               // GitHub Pagesでのテスト用（削除しても良い）
+            ];
+            
+            // 許可されたドメインのいずれかに含まれるかチェック
+            const isAllowed = allowedDomains.some(domain => 
+                currentDomain.includes(domain)
+            );
+            
+            if (!isAllowed) {
+                // 不正なドメインの場合、正規サイトにリダイレクト
+                window.location.href = 'https://www.min-breeder.com';
+                return false;
+            }
+            return true;
+        }
+
+        // ドメインチェック実行
+        if (!checkDomain()) {
+            // チェックに失敗した場合は処理を停止
+            throw new Error('Unauthorized domain access');
+        }
+
         // 設定：遷移先URL
         const GOOGLE_REVIEW_URL = "https://www.min-breeder.com/dogRanking.php";
         const FEEDBACK_FORM_URL = "https://www.koneko-breeder.com/catRanking.php";
@@ -269,10 +297,11 @@
             }
         });
 
-        // 星をハイライト
+        // 星をハイライト（修正版）
         function highlightStars(rating) {
             stars.forEach((star, index) => {
-                if (index < rating) {
+                // インデックスは0から始まるので、index + 1 でrating以下かチェック
+                if (index + 1 <= rating) {
                     star.classList.add('active');
                 } else {
                     star.classList.remove('active');
