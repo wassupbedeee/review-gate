@@ -1,239 +1,380 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>お客様の声をお聞かせください</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お客様の声をお聞かせください</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-    .container {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-      padding: 40px 30px;
-      text-align: center;
-      max-width: 500px;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-    }
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #667eea, #764ba2);
-    }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
 
-    h1 {
-      color: #333;
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
 
-    .subtitle {
-      color: #666;
-      font-size: 16px;
-      margin-bottom: 40px;
-      line-height: 1.5;
-    }
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
 
-    .star-rating {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin: 30px 0;
-    }
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 30px 0;
+        }
 
-    .star {
-      font-size: 48px;
-      color: #ddd;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      user-select: none;
-      position: relative;
-      display: inline-block;
-    }
+        .star {
+            font-size: 48px;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            position: relative;
+            display: inline-block;
+        }
 
-    .star.active {
-      color: #ffd700;
-      animation: starPop 0.4s ease-out;
-    }
+        .star:hover {
+            transform: scale(1.1);
+            color: #ffd700;
+        }
 
-    .star.clicked {
-      animation: starClick 0.6s ease-out;
-    }
+        .star.active {
+            color: #ffd700;
+            animation: starPop 0.4s ease-out;
+        }
 
-    @keyframes starPop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-      100% { transform: scale(1.1); }
-    }
+        .star.clicked {
+            animation: starClick 0.6s ease-out;
+        }
 
-    @keyframes starClick {
-      0% { transform: scale(1.1); }
-      25% { transform: scale(1.4) rotate(5deg); }
-      50% { transform: scale(1.2) rotate(-2deg); }
-      75% { transform: scale(1.3) rotate(1deg); }
-      100% { transform: scale(1.1) rotate(0deg); }
-    }
+        @keyframes starPop {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
 
-    .rating-text {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #333;
-      font-weight: 500;
-      min-height: 25px;
-      transition: all 0.3s ease;
-    }
+        @keyframes starClick {
+            0% {
+                transform: scale(1.1);
+            }
+            25% {
+                transform: scale(1.4) rotate(5deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(-2deg);
+            }
+            75% {
+                transform: scale(1.3) rotate(1deg);
+            }
+            100% {
+                transform: scale(1.1) rotate(0deg);
+            }
+        }
 
-    .instruction {
-      color: #888;
-      font-size: 14px;
-      margin-top: 30px;
-      padding: 15px;
-      background: #f8f9fa;
-      border-radius: 8px;
-      border-left: 4px solid #667eea;
-    }
+        .rating-text {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            font-weight: 500;
+            min-height: 25px;
+            transition: all 0.3s ease;
+        }
 
-    .loading {
-      display: none;
-      margin-top: 20px;
-      color: #667eea;
-      font-size: 16px;
-    }
+        .instruction {
+            color: #888;
+            font-size: 14px;
+            margin-top: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
 
-    .spinner {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #f3f3f3;
-      border-top: 2px solid #667eea;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-right: 10px;
-    }
+        .loading {
+            display: none;
+            margin-top: 20px;
+            color: #667eea;
+            font-size: 16px;
+        }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
 
-    @media (max-width: 480px) {
-      .container { padding: 30px 20px; }
-      h1 { font-size: 20px; }
-      .subtitle { font-size: 14px; }
-      .star { font-size: 40px; }
-      .star-rating { gap: 4px; }
-      .rating-text { font-size: 16px; }
-    }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-    @media (hover: none) {
-      .star:hover {
-        transform: none;
-        color: inherit; /* 修正: タッチデバイスでも色維持 */
-      }
-    }
-  </style>
+        /* レスポンシブ対応 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .star {
+                font-size: 40px;
+            }
+
+            .star-rating {
+                gap: 4px;
+            }
+
+            .rating-text {
+                font-size: 16px;
+            }
+        }
+
+        /* タッチデバイス用の調整 */
+        @media (hover: none) {
+            .star:hover {
+                transform: none;
+                color: #ddd;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>お客様の声をお聞かせください</h1>
-    <p class="subtitle">サービスはいかがでしたか？星をタップして評価してください</p>
-
-    <div class="star-rating" id="starRating">
-      <span class="star" data-rating="1">★</span>
-      <span class="star" data-rating="2">★</span>
-      <span class="star" data-rating="3">★</span>
-      <span class="star" data-rating="4">★</span>
-      <span class="star" data-rating="5">★</span>
+    <div class="container">
+        <h1>お客様の声をお聞かせください</h1>
+        <p class="subtitle">サービスはいかがでしたか？星をタップして評価してください</p>
+        
+        <div class="star-rating" id="starRating">
+            <span class="star" data-rating="1">★</span>
+            <span class="star" data-rating="2">★</span>
+            <span class="star" data-rating="3">★</span>
+            <span class="star" data-rating="4">★</span>
+            <span class="star" data-rating="5">★</span>
+        </div>
+        
+        <div class="rating-text" id="ratingText"></div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            レビューページに移動中...
+        </div>
+        
+        <div class="instruction">
+            ★をタップして評価してください<br>
+            自動的に適切なページに移動します
+        </div>
     </div>
 
-    <div class="rating-text" id="ratingText"></div>
+    <script>
+        // 🔒 セキュリティチェック: 許可されたドメインかチェック
+        function checkDomain() {
+            const currentDomain = window.location.hostname;
+            const allowedDomains = [
+                'min-breeder.com',           
+                'koneko-breeder.com',    
+                'github.io'               // GitHub Pagesでのテスト用（削除しても良い）
+            ];
+            
+            // 許可されたドメインのいずれかに含まれるかチェック
+            const isAllowed = allowedDomains.some(domain => 
+                currentDomain.includes(domain)
+            );
+            
+            if (!isAllowed) {
+                // 不正なドメインの場合、正規サイトにリダイレクト
+                window.location.href = 'https://www.min-breeder.com';
+                return false;
+            }
+            return true;
+        }
 
-    <div class="loading" id="loading">
-      <div class="spinner"></div>
-      レビューページに移動中...
-    </div>
+        // ドメインチェック実行
+        if (!checkDomain()) {
+            // チェックに失敗した場合は処理を停止
+            throw new Error('Unauthorized domain access');
+        }
 
-    <div class="instruction">
-      ★をタップして評価してください<br>
-      自動的に適切なページに移動します
-    </div>
-  </div>
+        // 設定：遷移先URL
+        const GOOGLE_REVIEW_URL = "https://www.min-breeder.com/dogRanking.php";
+        const FEEDBACK_FORM_URL = "https://www.koneko-breeder.com/catRanking.php";
+        
+        // 評価テキスト
+        const ratingTexts = {
+            1: "改善点をお聞かせください 😔",
+            2: "ご意見をお聞かせください 😕",
+            3: "貴重なご意見をお聞かせください 😐",
+            4: "Googleレビューをお願いします！ 😊",
+            5: "Googleレビューをお願いします！ ⭐"
+        };
 
-  <script>
-    function checkDomain() {
-      const currentDomain = window.location.hostname;
-      const allowedDomains = [
-        'min-breeder.com',
-        'koneko-breeder.com',
-        'github.io'
-      ];
-      const isAllowed = allowedDomains.some(domain => currentDomain.includes(domain));
-      if (!isAllowed) {
-        window.location.href = 'https://www.min-breeder.com';
-        return false;
-      }
-      return true;
-    }
+        const stars = document.querySelectorAll('.star');
+        const ratingText = document.getElementById('ratingText');
+        const loading = document.getElementById('loading');
+        let selectedRating = 0;
 
-    if (!checkDomain()) {
-      throw new Error('Unauthorized domain access');
-    }
+        // 星にイベントリスナーを追加（シンプル版）
+        stars.forEach((star, index) => {
+            // クリック/タップ効果（シンプル統合）
+            star.addEventListener('click', function(e) {
+                const rating = parseInt(this.dataset.rating);
+                
+                // 即座に星をハイライト（selectRatingより前に実行）
+                stars.forEach((s, i) => {
+                    if (i < rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+                
+                showRatingText(rating);
+                selectRating(rating);
+            });
 
-    const GOOGLE_REVIEW_URL = "https://www.min-breeder.com/dogRanking.php";
-    const FEEDBACK_FORM_URL = "https://www.koneko-breeder.com/catRanking.php";
+            // ホバー効果（デスクトップのみ）
+            star.addEventListener('mouseenter', function() {
+                if (!('ontouchstart' in window)) { // タッチデバイスでない場合のみ
+                    const rating = parseInt(this.dataset.rating);
+                    highlightStars(rating);
+                    showRatingText(rating);
+                }
+            });
+        });
 
-    const ratingTexts = {
-      1: "改善点をお聞かせください 😔",
-      2: "ご意見をお聞かせください 😕",
-      3: "貴重なご意見をお聞かせください 😐",
-      4: "Googleレビューをお願いします！ 😊",
-      5: "Googleレビューをお願いします！ ⭐"
-    };
+        // 星評価エリアからマウスが離れた時の処理
+        document.getElementById('starRating').addEventListener('mouseleave', function() {
+            if (selectedRating === 0) {
+                resetStars();
+                ratingText.textContent = '';
+            } else {
+                highlightStars(selectedRating);
+                showRatingText(selectedRating);
+            }
+        });
 
-    const stars = document.querySelectorAll('.star');
-    const ratingText = document.getElementById('ratingText');
-    const loading = document.getElementById('loading');
-    let selectedRating = 0;
+        // 星をハイライト（完全修正版）
+        function highlightStars(rating) {
+            console.log('Rating:', rating); // デバッグ用
+            stars.forEach((star, index) => {
+                console.log('Star index:', index, 'Should be active:', index < rating); // デバッグ用
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
 
-    stars.forEach(star => {
-      const rating = parseInt(star.dataset.rating);
+        // 星をリセット
+        function resetStars() {
+            stars.forEach(star => {
+                star.classList.remove('active');
+            });
+        }
 
-      // PC click
-      star.addEventListener('click', function(e) {
-        e.preventDefault();
-        selectRating(rating);
-      });
+        // 評価テキストを表示
+        function showRatingText(rating) {
+            ratingText.textContent = ratingTexts[rating];
+        }
 
-      // SP touch
-      star.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-        highlightStars(rating);
-        showRatingText(rating);
-      });
+        // 評価を選択
+        function selectRating(rating) {
+            selectedRating = rating;
+            
+            // クリックアニメーション
+            stars[rating - 1].classList.add('clicked');
+            
+            // アニメーション終了後にクラスを削除
+            setTimeout(() => {
+                stars[rating - 1].classList.remove('clicked');
+            }, 600);
 
-      star.addEventListener('touchend', function(e) {
-        e.preventDef
+            // 星をハイライト
+            highlightStars(rating);
+            showRatingText(rating);
+
+            // 少し待ってから遷移
+            setTimeout(() => {
+                redirectToUrl(rating);
+            }, 800);
+        }
+
+        // URLに遷移
+        function redirectToUrl(rating) {
+            loading.style.display = 'block';
+            
+            let targetUrl;
+            if (rating >= 4) {
+                targetUrl = GOOGLE_REVIEW_URL;
+            } else {
+                targetUrl = FEEDBACK_FORM_URL;
+            }
+
+            // 実際の遷移（少し遅延を加えて自然に）
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 1000);
+        }
+
+        // タッチデバイス用（削除：不要になった）
+    </script>
+</body>
+</html>
