@@ -297,11 +297,12 @@
             }
         });
 
-        // 星をハイライト（修正版）
+        // 星をハイライト（完全修正版）
         function highlightStars(rating) {
+            console.log('Rating:', rating); // デバッグ用
             stars.forEach((star, index) => {
-                // インデックスは0から始まるので、index + 1 でrating以下かチェック
-                if (index + 1 <= rating) {
+                console.log('Star index:', index, 'Should be active:', index < rating); // デバッグ用
+                if (index < rating) {
                     star.classList.add('active');
                 } else {
                     star.classList.remove('active');
