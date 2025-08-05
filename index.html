@@ -224,35 +224,7 @@
     </div>
 
     <script>
-        // 🔒 セキュリティチェック: 許可されたドメインかチェック
-        function checkDomain() {
-            const currentDomain = window.location.hostname;
-            const allowedDomains = [
-                'min-breeder.com',           
-                'koneko-breeder.com',    
-                'github.io'               // GitHub Pagesでのテスト用（削除しても良い）
-            ];
-            
-            // 許可されたドメインのいずれかに含まれるかチェック
-            const isAllowed = allowedDomains.some(domain => 
-                currentDomain.includes(domain)
-            );
-            
-            if (!isAllowed) {
-                // 不正なドメインの場合、正規サイトにリダイレクト
-                window.location.href = 'https://www.min-breeder.com';
-                return false;
-            }
-            return true;
-        }
-
-        // ドメインチェック実行
-        if (!checkDomain()) {
-            // チェックに失敗した場合は処理を停止
-            throw new Error('Unauthorized domain access');
-        }
-
-        // 設定：遷移先URL
+        // 設定：遷移先URL（シンプル版）
         const GOOGLE_REVIEW_URL = "https://www.min-breeder.com/dogRanking.php";
         const FEEDBACK_FORM_URL = "https://www.koneko-breeder.com/catRanking.php";
         
@@ -270,79 +242,68 @@
         const loading = document.getElementById('loading');
         let selectedRating = 0;
 
-        // 星にイベントリスナーを追加（修正版）
-        stars.forEach(star => {
-            // ホバー効果（デスクトップのみ）
-            star.addEventListener('mouseenter', function() {
-                // タッチデバイスではホバーを無効化
-                if (window.matchMedia("(hover: hover)").matches) {
-                    const rating = parseInt(this.dataset.rating);
-                    highlightStars(rating);
-                    showRatingText(rating);
-                }
-            });
-
-            // クリック/タップ効果（統合版）
-            star.addEventListener('click', function(e) {
-                e.preventDefault(); // デフォルト動作を防止
+        // 星にイベントリスナーを追加（超シンプル版）
+        stars.forEach((star, index) => {
+            // クリック/タップ効果
+            star.addEventListener('click', function() {
                 const rating = parseInt(this.dataset.rating);
-                console.log('Star clicked, rating:', rating); // デバッグ用
-                selectRating(rating);
-            });
-
-            // タッチ専用イベント（スマホ用）
-            star.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                const rating = parseInt(this.dataset.rating);
-                console.log('Star touched, rating:', rating); // デバッグ用
+                console.log('Star clicked:', rating); // デバッグ用
                 
-                // タッチ時は即座に星をハイライト
-                highlightStars(rating);
-                showRatingText(rating);
+                // 即座に星をハイライト
+                stars.forEach((s, i) => {
+                    if (i < rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+                
+                // テキスト表示
+                ratingText.textContent = ratingTexts[rating];
+                
+                // 評価を選択
+                selectRating(rating);
             });
 
-            star.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                const rating = parseInt(this.dataset.rating);
-                selectRating(rating);
+            // ホバー効果（PC用のみ）
+            star.addEventListener('mouseenter', function() {
+                if (!('ontouchstart' in window)) {
+                    const rating = parseInt(this.dataset.rating);
+                    
+                    // ホバー時の星ハイライト
+                    stars.forEach((s, i) => {
+                        if (i < rating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                    
+                    ratingText.textContent = ratingTexts[rating];
+                }
             });
         });
 
         // 星評価エリアからマウスが離れた時の処理
         document.getElementById('starRating').addEventListener('mouseleave', function() {
-            if (selectedRating === 0) {
-                resetStars();
+            if (selectedRating === 0 && !('ontouchstart' in window)) {
+                // 選択されていない場合は星をリセット
+                stars.forEach(star => {
+                    star.classList.remove('active');
+                });
                 ratingText.textContent = '';
-            } else {
-                highlightStars(selectedRating);
-                showRatingText(selectedRating);
+            } else if (selectedRating > 0) {
+                // 既に選択済みの場合は選択状態を維持
+                stars.forEach((s, i) => {
+                    if (i < selectedRating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+                ratingText.textContent = ratingTexts[selectedRating];
             }
         });
-
-        // 星をハイライト（完全修正版）
-        function highlightStars(rating) {
-            console.log('Rating:', rating); // デバッグ用
-            stars.forEach((star, index) => {
-                console.log('Star index:', index, 'Should be active:', index < rating); // デバッグ用
-                if (index < rating) {
-                    star.classList.add('active');
-                } else {
-                    star.classList.remove('active');
-                }
-            });
-        }
-
-        // 星をリセット
-        function resetStars() {
-            stars.forEach(star => {
-                star.classList.remove('active');
-            });
-        }
-
-        // 評価テキストを表示
-        function showRatingText(rating) {
-            ratingText.textContent = ratingTexts[rating];
-        }
 
         // 評価を選択
         function selectRating(rating) {
@@ -355,10 +316,6 @@
             setTimeout(() => {
                 stars[rating - 1].classList.remove('clicked');
             }, 600);
-
-            // 星をハイライト
-            highlightStars(rating);
-            showRatingText(rating);
 
             // 少し待ってから遷移
             setTimeout(() => {
@@ -377,20 +334,11 @@
                 targetUrl = FEEDBACK_FORM_URL;
             }
 
-            // 実際の遷移（少し遅延を加えて自然に）
+            // 実際の遷移
             setTimeout(() => {
                 window.location.href = targetUrl;
             }, 1000);
         }
-
-        // タッチデバイス用のダブルタップ防止（簡略化）
-        let touchTimeout;
-        stars.forEach(star => {
-            star.addEventListener('touchend', function(e) {
-                // 既存のtouchendイベントと重複を避けるため、ここは空にする
-                // 実際の処理は上のイベントリスナーで行う
-            });
-        });
     </script>
 </body>
 </html>
